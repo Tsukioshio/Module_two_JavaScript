@@ -24,8 +24,6 @@ for (let i = 0; i < week.length; i++) {
 }
 
 
-
-
 const arr = ['1234','34536434','767456485','54364234','33246346','4564345','7787654645'];
 
 function checkFirstNumber(number) {
@@ -45,3 +43,4 @@ function print(item) {
 arr
 .filter((num)=>checkFirstNumber(num))
 .forEach(print);
+
