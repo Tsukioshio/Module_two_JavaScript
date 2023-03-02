@@ -1,0 +1,12 @@
+.text {
+  margin: 20px;
+  font-size: 2em; }
+
+.italic {
+  font-style: italic;
+  font-size: 3em;
+  text-decoration: underline; }
+
+.bold {
+  font-weight: bold; }
+  
