@@ -1,46 +1,46 @@
-const week = [
-'Monday',
-'Tuesday',
-'Wednesday',
-'Thursday',
-'Friday',
-'Saturday',
-'Sunday',
-];
+function print(text) {
+    document.write(`<div>${text}</div>`);
+    }
 
-const weekendtDayIndex = [5, 6];
-const currentDayIndex = new Date().getDay();
+const getAccumulatedIncome = (salary, extraMoney, expensesAmount) => (salary + extraMoney) - expensesAmount;
 
+const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
 
-function printDay(index) {
-    const classes = `text ${currentDayIndex === index ? 'italic' : ''} ${weekendtDayIndex.includes(index) ? 'bold' : ''}`
-document.writeln(`<div class='${classes}'>${week[index]}</div>`)
-}
+const GetbudgetDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
 
-// week.forEach(printDay);
+const init = () => {
+    const salary = Number.parseFloat(prompt('Ваш месячный доход?'));
+    print(`Месячный доход: ${salary} Руб`);
+    
+    const extraMoney = Number.parseFloat(prompt(`Перечислите возможный доход за ваши дополнительные работы:`))
+    print(`Дополнительный доход: ${extraMoney} Руб`);
+    
+    const expenseCategories = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+    print(`Категории Расходов: ${expenseCategories}`);
+    
+    const expensesAmount = Number.parseFloat(prompt('Во сколько обойдутся обязательные статьи расходов?'));
+    print(`Сумма расходов: ${expensesAmount} Руб`);
 
-for (let i = 0; i < week.length; i++) {
-    printDay(i);
-}
+    const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?'));
+    print(`Целевая сумма: ${purpose} Руб`);
+    
+    const accumulatedIncome = getAccumulatedIncome(salary, extraMoney, expensesAmount);
 
+    const targetMonth = getTargetMonth(accumulatedIncome, purpose);
+    print(`Нужная сумма будет накоплена через: ${targetMonth} месяцев`);
 
-const arr = ['1234','34536434','767456485','54364234','33246346','4564345','7787654645'];
+    const budgetDay = GetbudgetDay(accumulatedIncome)
 
-function checkFirstNumber(number) {
-    let firstNumber = number;
+    console.clear()
 
-    while(firstNumber > 10) firstNumber /= 10;
-
-    firstNumber = Math.floor(firstNumber);
-
-    return firstNumber === 3 || firstNumber === 7;
-}
-
-function print(item) {
-    console.log(item);
-}
-
-arr
-.filter((num)=>checkFirstNumber(num))
-.forEach(print);
+        if (budgetDay < 0) {
+        console.log('Что-то пошло не так'); 
+        } else if (budgetDay > 6000) {
+            console.log('У вас высокий уровень дохода');
+        } else if (budgetDay > 3000 && budgetDay < 6000) {
+        console.log('У вас средний уровень дохода');
+        } else if (budgetDay < 3000 && budgetDay > 0) {
+            console.log('К сожалению у вас уровень дохода ниже среднего');
+        }
+};
 
