@@ -1,46 +1,56 @@
-function print(text) {
-    document.write(`<div>${text}</div>`);
-    }
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const getAccumulatedIncome = (salary, extraMoney, expensesAmount) => (salary + extraMoney) - expensesAmount;
-
-const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
-
-const GetbudgetDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
-
-const init = () => {
-    const salary = Number.parseFloat(prompt('Ваш месячный доход?'));
-    print(`Месячный доход: ${salary} Руб`);
-    
-    const extraMoney = Number.parseFloat(prompt(`Перечислите возможный доход за ваши дополнительные работы:`))
-    print(`Дополнительный доход: ${extraMoney} Руб`);
-    
-    const expenseCategories = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-    print(`Категории Расходов: ${expenseCategories}`);
-    
-    const expensesAmount = Number.parseFloat(prompt('Во сколько обойдутся обязательные статьи расходов?'));
-    print(`Сумма расходов: ${expensesAmount} Руб`);
-
-    const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?'));
-    print(`Целевая сумма: ${purpose} Руб`);
-    
-    const accumulatedIncome = getAccumulatedIncome(salary, extraMoney, expensesAmount);
-
-    const targetMonth = getTargetMonth(accumulatedIncome, purpose);
-    print(`Нужная сумма будет накоплена через: ${targetMonth} месяцев`);
-
-    const budgetDay = GetbudgetDay(accumulatedIncome)
-
-    console.clear()
-
-        if (budgetDay < 0) {
-        console.log('Что-то пошло не так'); 
-        } else if (budgetDay > 6000) {
-            console.log('У вас высокий уровень дохода');
-        } else if (budgetDay > 3000 && budgetDay < 6000) {
-        console.log('У вас средний уровень дохода');
-        } else if (budgetDay < 3000 && budgetDay > 0) {
-            console.log('К сожалению у вас уровень дохода ниже среднего');
-        }
+const validateAnswer = (answer) => {
+    // if (answer == null) alert('Игра окончена');
+    if (answer == '') alert('Нужно ввести число!');
+    else if (isNaN(answer)) alert('Введите число!');
+    else return true;
 };
 
+const start = () => {
+    const MIN_VALUE = 1;
+    const MAX_VALUE = 10;
+
+    const ATTEMPTS_COUNT = 5;
+
+    let attemptsLeft = ATTEMPTS_COUNT;
+
+    const searchNumber = getRandomNumber(MIN_VALUE, MAX_VALUE)
+
+    const loop = () => {
+        if (attemptsLeft == 0) {
+            const runAgain = confirm('У вас закончились попытки! Хотите сыграть еще?')
+
+            if (runAgain) start();
+            else alert('Игра окончена!');
+            return;
+        }
+
+        const userAnswer = prompt(`Угадай число от ${MIN_VALUE} до ${MAX_VALUE} за ${attemptsLeft} попыток`);
+
+        if (userAnswer == null) {
+        alert('Игра окончена');
+        return;
+    }
+    
+        if (validateAnswer(userAnswer)) {
+            const answer = Number.parseInt(userAnswer);
+            if (answer > searchNumber) {
+                attemptsLeft--;
+                alert(`Загаданное число меньше, осталось попыток: ${attemptsLeft}!`);
+                loop();
+            } else if (answer < searchNumber) {
+                attemptsLeft--;
+                alert(`Загаданное число больше, осталось попыток: ${attemptsLeft}!`);
+                loop();
+            } else if (answer == searchNumber) {
+                const runAgain = confirm(`Вы угадали за ${ATTEMPTS_COUNT - attemptsLeft + 1} попыток!!! 
+Хотели бы сыграть еще?`);
+                if (runAgain) start();
+                else alert('Игра окончена!');
+            }
+        } else loop();
+    };
+
+    loop();
+};
