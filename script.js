@@ -1,4 +1,4 @@
-function print(text) {
+function func(text) {
     document.write(`<div>${text}</div>`);
     }
 
@@ -8,26 +8,36 @@ const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accum
 
 const GetbudgetDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
 
+const questionLoop = (question, defaultValue) => {
+    const answer = Number.parseFloat(prompt(question, defaultValue));
+
+    if (isNaN(answer)) return questionLoop(question, defaultValue);
+    return answer;
+};
+
+
 const init = () => {
-    const salary = Number.parseFloat(prompt('Ваш месячный доход?'));
-    print(`Месячный доход: ${salary} Руб`);
+    const salary = questionLoop('Ваш месячный доход?');
+    func(`Месячный доход: ${salary} Руб`);
     
-    const extraMoney = Number.parseFloat(prompt(`Перечислите возможный доход за ваши дополнительные работы:`))
-    print(`Дополнительный доход: ${extraMoney} Руб`);
+    const extraMoney = questionLoop(`Перечислите возможный доход за ваши дополнительные работы:`)
+    func(`Дополнительный доход: ${extraMoney} Руб`);
     
     const expenseCategories = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-    print(`Категории Расходов: ${expenseCategories}`);
+    func(`Категории Расходов: ${expenseCategories}`);
     
-    const expensesAmount = Number.parseFloat(prompt('Во сколько обойдутся обязательные статьи расходов?'));
-    print(`Сумма расходов: ${expensesAmount} Руб`);
+    const expensesAmount = questionLoop('Во сколько обойдутся обязательные статьи расходов?');
+    func(`Сумма расходов: ${expensesAmount} Руб`);
 
-    const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?'));
-    print(`Целевая сумма: ${purpose} Руб`);
+    const purpose = questionLoop('Введите сумму которую желаете накопить?');
+    func(`Целевая сумма: ${purpose} Руб`);
     
     const accumulatedIncome = getAccumulatedIncome(salary, extraMoney, expensesAmount);
 
     const targetMonth = getTargetMonth(accumulatedIncome, purpose);
-    print(`Нужная сумма будет накоплена через: ${targetMonth} месяцев`);
+    func(targetMonth > 0
+        ? `Ваша цель накопить ${purpose} с учетом всех ваших расходов будет достигнута через ${targetMonth}`
+        : 'Ваша цель не будет достигнута');
 
     const budgetDay = GetbudgetDay(accumulatedIncome)
 
@@ -44,3 +54,25 @@ const init = () => {
         }
 };
 
+
+
+// hard homework
+
+const array = ['12341', '414123', '75673453', '456452', '65477768', '873542', '2346356'];
+
+array.filter(number => ['2', '4'].includes(number[0])).forEach(func)
+
+
+const cutText = (arg) => {
+    if (typeof arg === 'string'){
+        arg = arg.trim();
+        if (arg.length > 30) {
+            arg = arg.slice(0, 30).concat('...')
+        }
+        return arg;
+    } else console.log ('Это не текст');
+};
+
+const resultText = cutText('312321331312323131231312312312323131231111123123132312331231312312312312312312313123');
+
+document.write(resultText);
