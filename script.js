@@ -1,37 +1,44 @@
-'use strict'
+const getUsers = () => {
+  const url = 'https://reqres.in/api/users?per_page=12';
 
-let money = 100000 // доходы
-let profit = 'фриланс'
-let extraMoney = 20000 // до доходы
-let expenses =  "питание, проезд"
-let amount = 10000 // расходы
-let purpose = 1000000
-let period = 12
-let deposit = true
-
-const getAccumulatedIncome = () => {
-  return (money + extraMoney) - amount
+  return fetch(url)
+    .then(response => response.json())
 }
 
-let accumulatedIncome = getAccumulatedIncome()
-let budgetDay = accumulatedIncome / 30
+const printSurnames = (users) => {
+  users.forEach(({last_name: surname}) => console.log(surname))
 
-function getTargetMonth() {
-  return purpose / accumulatedIncome
+  return users
 }
 
-console.log('Ваш бюджет на месяц с учетом ваших расходов составляет: ', getAccumulatedIncome());
-console.log(`Ваша цель накопить ${purpose} с учетом всех ваших расходов будет достигнута через`, getTargetMonth() + ' месяца');
-console.log('Дневной бюджет', budgetDay);
-// конслтрукция условий
 
 
+const printUserWithSurnameStartsF = (users) => {
+  users.filter(({last_name: surname}) => surname.startsWith('F'))
+    .forEach(user => console.log(user))
 
+  return users
+}
 
+const printDatabase = (users) => {
+  const result = users.reduce((string, {first_name: name, last_name: surname}) => {
+    return string.concat(`${surname} ${name}, `)
+  }, 'Наша база содержит данные следующих пользователей: ')
 
-// удалили
-// console.log('getTargetMonth', getTargetMonth());
-// console.log('accumulatedIncome', accumulatedIncome);
+  .trimEnd()
+  .slice(0, -1)
 
-// console.log('budgetDay', budgetDay);
-// console.log(`цель будет достигнута за ${purpose / budgetMonth}`);
+  console.log(result);
+  return users[0]
+}
+
+const printKeys = (user) => {
+  Object.keys(user).forEach(key => console.log(key))
+}
+
+getUsers()
+  .then(({data: users}) => users)
+  .then(printSurnames)
+  .then(printUserWithSurnameStartsF)
+  .then(printDatabase)
+  .then(printKeys)
