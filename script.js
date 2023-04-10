@@ -1,44 +1,68 @@
-const getUsers = () => {
-  const url = 'https://reqres.in/api/users?per_page=12';
-
-  return fetch(url)
-    .then(response => response.json())
-}
-
-const printSurnames = (users) => {
-  users.forEach(({last_name: surname}) => console.log(surname))
-
-  return users
+function init() {
+  reorderBooks();
+  removeAds();
+  repairThirdBookName();
+  reorderNumber
 }
 
 
+const reorderBooks = () => {
+  const root = document.querySelector('.books')
+  const books = document.querySelectorAll('.book');
 
-const printUserWithSurnameStartsF = (users) => {
-  users.filter(({last_name: surname}) => surname.startsWith('F'))
-    .forEach(user => console.log(user))
 
-  return users
+  const indexes = []
+
+  books.forEach(book => {
+    const index = getBookNumber(book);
+    indexes.push(index)
+  })
+
+  for (let i = 1; i <= indexes.length; i++) {
+    const bookIndex = indexes.indexOf(i);
+
+    root.appendChild(books[bookIndex])
+  }
 }
 
-const printDatabase = (users) => {
-  const result = users.reduce((string, {first_name: name, last_name: surname}) => {
-    return string.concat(`${surname} ${name}, `)
-  }, 'Наша база содержит данные следующих пользователей: ')
+const getBookNumber = ({innerText}) => +innerText.replace(/.*\s(\d).*/, '$1')[0];
 
-  .trimEnd()
-  .slice(0, -1)
+const removeAds = () => {
+  const root = document.querySelector('body');
+  const adv = document.querySelector('.adv');
 
-  console.log(result);
-  return users[0]
+  root.removeChild(adv)
 }
 
-const printKeys = (user) => {
-  Object.keys(user).forEach(key => console.log(key))
+const repairThirdBookName = () => {
+  const thirdBookTitle = document.querySelector('.book:nth-child(3) > h2 > a');
+
+  thirdBookTitle.textContent = 'Книга 3. this и Прототипы Объектов'
 }
 
-getUsers()
-  .then(({data: users}) => users)
-  .then(printSurnames)
-  .then(printUserWithSurnameStartsF)
-  .then(printDatabase)
-  .then(printKeys)
+
+
+
+// const list = document.querySelector('.bookOrder')
+// const items = document.querySelectorAll('.bookOrder li')
+
+const reorderNumber = () => {
+  const list = document.querySelector('.bookOrder')
+  const items = document.querySelectorAll('li');
+
+
+  const indexes = []
+
+  li.forEach(li => {
+    const indexLi = getLiNumber(li);
+    indexes.push(indexLi)
+  })
+
+  for (let i = 1; i <= indexes.length; i++) {
+    const liIndex = indexes.indexOf(i);
+
+    root.appendChild(li[liIndex])
+  }
+}
+
+const getLiNumber = ({innerText}) => +innerText.replace(/.*\s(\d).*/, '$1')[0];
