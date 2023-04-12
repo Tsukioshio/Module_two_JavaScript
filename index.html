@@ -1,70 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="./index.js"></script>
-  <script src="./script.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration</title>
+    <link rel="stylesheet" href="./stylesheet.css">
+    <link rel="stylesheet" href="./reset.css">
+    
 </head>
-<body>
+<body class="background">
+    
 
-  <div class="calculator">
-    <div class="calculator__items">
-      <div class="">
-        <h2>Ваш месячный доход?</h2>
-        <input placeholder="Введите сумму" type="text" id="income" oninput="onInputMoney(event)">
-      </div>
+<div class="registration__form">
+        
+        <p class="registration">Регистрация</p>
 
-      <div class="">
-        <h2>Перечислите какие у вас дополнительные доходы через запятую?</h2>
-        <input placeholder="Фриланс, курьер и тд" type="text" id="additionalIncome">
-      </div>
+        <div class="email-wrapper">
+            <p class="email">E-mail</p>
+            <span class="required-1">*</span><input type="text" placeholder="Введите E-mail" class="input__text input_email" id="email">
+        </div>
 
-      <div class="">
-        <h2>Какая сумма дополнительных доходов?</h2>
-        <input placeholder="Введите сумму" type="text" id="sumAdditionalIncome" oninput="onInputExtraMoney(event)"> 
-      </div>
+        <div class="password-wrapper">
+            <p class="password">Пароль</p>
+            <span class="required-2">*</span><input type="password" placeholder="Введите пароль" class="input__text input_password" id="password"> 
+        </div>
 
-      <div class="">
-        <h2>Ваши обязательные расходы перечислите через запятую?</h2>
-        <input placeholder="проезд, коммуналка и тд" type="text" id="expenses" oninput="onInputAmount(event)">
-      </div>
+        <span class="required-3">*</span><label class="container"><p>Я согласен получать обновления на почту</p>
+            <input type="checkbox" checked="checked">
+            <span class="checkmark"></span>
+          </label>
 
-      <div class="">
-        <h2>Какую сумму вы бы хотели накопить?</h2>
-        <input placeholder="Введите сумму" type="text" id="savings">
-      </div>
+        <div class="box__button">            
+            <button class="authorization__button"><a href="./index_auth.html">Авторизация</a></button>
+            <button class="registration__button" onclick="signUp()">Регистрация</button>
+        </div>
+</div>
 
-      <div class="">
-        <h2>За какой период вы бы хотели накопить желаемую сумму?</h2>
-        <input placeholder="Укажите кол-во месяцев" type="text" id="period">
-      </div>
+<script src="./script.js">
 
-      <button class="calculator__items-submit" onclick="calc()">Рассчитать</button>
-    </div>
-
-    <div class="calculator__result">
-      <div class="calculator__result-item item">
-        Ваш бюджет на месяц с учетом ваших расходов составляет: <span class="item__result" id="sumMoney"></span>
-      </div>
-
-      <div class="calculator__result-item item">
-        Ваш дневной бюджет: <span class="item__result" id="sumMoneyDay"></span>
-      </div>
-
-      <div class="calculator__result-item item">
-        Ваша цель накопить <span class="item__result" id="sumMoneyPurpose"></span> с учетом всех ваших расходов будет достигнута через <span class="item__result" id="purpose"></span> месяцев
-      </div>
-
-      <div class="calculator__result-item item">
-        Ваш уровень дохода<span class="item__result" id="incomeLevel"></span> месяцев
-      </div>
-    </div>
-  </div>
-  
-  <script src="./script.js"></script>
+</script>
 </body>
 </html>
